@@ -132,7 +132,7 @@ if (!class_exists("exifography")) {
 				'after_block' => '</ul>',
 				'sep' => ': ',
 				'timestamp' => 'j F, Y',
-				'geo_zoom' => '2',
+				'geo_zoom' => '16',
 				'geo_width' => '100',
 				'geo_height' => '100'
 			);
@@ -231,11 +231,13 @@ if (!class_exists("exifography")) {
 				// all the formats we might want
 				$geo_coords = $neg_lat . number_format($lat,6) . ',' . $neg_lng . number_format($lng, 6);
 				$geo_lon = $neg_lng . number_format($lng, 6);
-				$geo_lat = $neg_lat . number_format($lat,6)
+				$geo_lat = $neg_lat . number_format($lat,6);
 				$geo_pretty_coords = $this->geo_pretty_fracs2dec($latitude) . $lat_ref . ' ' . $this->geo_pretty_fracs2dec($longitude) . $lng_ref;
 				# https://www.openstreetmap.org/?mlat=40.4587&mlon=-111.1862#map=16/40.4587/-111.1862
-				$gmap_url = 'https://www.openstreetmap.org/?mlat=' . $geo_lat . '&mlon=' . $geo_lon . '#map=16/' . $geo_lat . '/' . $geo_lon;
-				$geo_key = !empty($options['geo_key']) ? '&key=' . $options['geo_key'] : '';
+				$gmap_url = '//www.openstreetmap.org/?mlat=' . $geo_lat . '&mlon=' . $geo_lon . '#map=' . $options['geo_zoom'] . '/' . $geo_lat . '/' . $geo_lon;
+				#$geo_key = !empty($options['geo_key']) ? '&key=' . $options['geo_key'] : '';
+
+				# <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-111.94870948791505%2C40.743355347975395%2C-111.8603038787842%2C40.784050931438074&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=14/40.7637/-111.9045">View Larger Map</a></small>
 				$geo_img_url = '//maps.googleapis.com/maps/api/staticmap?zoom='.$options['geo_zoom'].'&size='.$options['geo_width'].'x'.$options['geo_height'].'&maptype=roadmap
 &markers=color:blue%7Clabel:S%7C'.$geo_coords.'&sensor=false'.$geo_key;
 				$geo_img_html = '<img src="'.$geo_img_url.'" alt="'.$geo_pretty_coords.'" title="'.$geo_pretty_coords.'" width="'.$options['geo_width'].'" height="'.$options['geo_height'].'" style="vertical-align:top;" />';
