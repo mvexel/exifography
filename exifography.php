@@ -230,8 +230,11 @@ if (!class_exists("exifography")) {
 
 				// all the formats we might want
 				$geo_coords = $neg_lat . number_format($lat,6) . ',' . $neg_lng . number_format($lng, 6);
+				$geo_lon = $neg_lng . number_format($lng, 6);
+				$geo_lat = $neg_lat . number_format($lat,6)
 				$geo_pretty_coords = $this->geo_pretty_fracs2dec($latitude) . $lat_ref . ' ' . $this->geo_pretty_fracs2dec($longitude) . $lng_ref;
-				$gmap_url = '//maps.google.com/maps?q=' . $geo_coords . '&ll=' . $geo_coords . '&z=11';
+				# https://www.openstreetmap.org/?mlat=40.4587&mlon=-111.1862#map=16/40.4587/-111.1862
+				$gmap_url = 'https://www.openstreetmap.org/?mlat=' . $geo_lat . '&mlon=' . $geo_lon . '#map=16/' . $geo_lat . '/' . $geo_lon;
 				$geo_key = !empty($options['geo_key']) ? '&key=' . $options['geo_key'] : '';
 				$geo_img_url = '//maps.googleapis.com/maps/api/staticmap?zoom='.$options['geo_zoom'].'&size='.$options['geo_width'].'x'.$options['geo_height'].'&maptype=roadmap
 &markers=color:blue%7Clabel:S%7C'.$geo_coords.'&sensor=false'.$geo_key;
@@ -493,7 +496,7 @@ if (!class_exists("exifography")) {
 			}
 			add_settings_field('timestamp',__('Timestamp format', 'exifography'),array($this,'timestamp'),'plugin_options','custom_html');
 			add_settings_field('item_label',__('Turn off item label', 'exifography'),array($this,'label'),'plugin_options','custom_html');
-			add_settings_field('geo_link',__('Link GEO EXIF to Google Maps', 'exifography'),array($this,'geo_link'),'plugin_options','custom_html');
+			add_settings_field('geo_link',__('Link GEO EXIF to OSM', 'exifography'),array($this,'geo_link'),'plugin_options','custom_html');
 			add_settings_field('geo_img',__('Display map thumbnail instead of location coords', 'exifography'),array($this,'geo_img'),'plugin_options','custom_html');
 			add_settings_field('geo_zoom',__('Map zoom (0 is the widest, 21 is close)', 'exifography'),array($this,'geo_zoom'),'plugin_options','custom_html');
 			add_settings_field('geo_width',__('Map width', 'exifography'),array($this,'geo_width'),'plugin_options','custom_html');
