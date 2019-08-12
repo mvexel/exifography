@@ -52,8 +52,6 @@ See the above answer.
 
 = 1.3.1 =
 * Added featured image as automatic exif source
-* Refactored `display_geo` so it can be used independently
-* Bug fixes
 
 = 1.3 =
 * Added Google Maps API field for high usage
